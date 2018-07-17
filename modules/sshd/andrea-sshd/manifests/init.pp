@@ -36,6 +36,42 @@
 # Copyright 2018 Your name here, unless otherwise noted.
 #
 class sshd {
+	package {
+		"sshmontools": ensure => installed;
+	}
 
+	file { "/etc/sshd.conf":
+		source  => [
+			# from modules/sshd/files/$hostname/sshd.conf
+			"puppet:///modules/smartd/$hostname/sshd.conf",
+			# from modules/sshd/files/sshd.conf
+			"puppet:///modules/smartd/ssh.conf",
+		],
+		mode    => 444,
+		owner   => root,
+		group   => root,
+		# package must be installed before configuration file
+		require => Package["sshmontools"],
+	}
 
+	service { "sshd":
+		# automatically start at boot time
+		enable     => true,
+		# restart service if it is not running
+		ensure     => running,
+		# "service sshd status" returns useful service status info
+		hasstatus  => true,
+		# "service sshd restart" can restart service
+		hasrestart => true,
+		# package and configuration must be present for service
+		require    => [ Package["sshmontools"],
+			        File["/etc/sshd.conf"] ],
+		# changes to configuration cause service restart
+		subscribe  => File["/etc/sshd.conf"],
+	}
 }
+
+ssh_authorized_key { "vohoanvu-key-pair-oregon":
+    	user => "ubuntu",
+	key  => "AAAAB3NzaC1yc2EAAAADAQABAAABAQCLEzMHLXllTFyMDAsc2ad4fg9AFIPS62y43YQtx2JrF/EktaxciY1j+8H1wLA1EBDE8+1KapPiHXBFU/XenDEyYwGWwiVpuMtPv7ceHmLDW86uM64TO2rVGxGIJBb/qxLLqYoiJMKNX6hTP43ENBKeampArGYQuDRnOpF7LB9BN5qSqGDi821zrdBwHtZACksAKVx0cOU6coIsXkUmx1QGz/nqActZVKjW7MsSdSWc+rtduLz8tehqIw14psDaQAiqivElwvubhatkGP19WsBJPjelc5fWOqZvgToKEyecxXygDqOGej/bRWy+AyROlZpjjtMD7oXgi6XDD4jlDqtz",
+	}
