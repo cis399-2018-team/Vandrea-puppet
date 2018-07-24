@@ -8,19 +8,10 @@ node ip-10-0-4-109 {
 
 node ip-10-0-4-211 {
 	include sshd
-	class { 'apache': }
-	apache::vhost { 'example.com':
-		port	=> '80',
-		docroot => 'var/www/html'
-	}
+  include apache
 }
 
 node ip-10-0-4-48 {
 	include sshd
-	class { 'apache': }
-	apache::vhost { 'example.com':
-		port 	=> '80',
-		docroot => 'var/www/html'
-	}
+  include apache
 }
-
