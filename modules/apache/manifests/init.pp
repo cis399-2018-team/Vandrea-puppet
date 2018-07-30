@@ -1,6 +1,6 @@
 # == Class: apache
 #
-# Full description of class sshd here.
+# Full description of class apache here.
 #
 # === Parameters
 #
@@ -45,6 +45,12 @@ class apache {
 		docroot => 'var/www/html'
 	}
 
+	file { '/var/www/html/':
+		source => ["puppet:///html/",],
+		ensure => directory,
+	  recurse => true,
+	}
+
 	file { "/etc/apache/apache.conf":
 		source  => ["puppet:///modules/apache/apache.conf",],
 		mode    => 444,
@@ -59,9 +65,9 @@ class apache {
 		enable     => true,
 		# restart service if it is not running
 		ensure     => running,
-		# "service sshd status" returns useful service status info
+		# "service apache status" returns useful service status info
 		hasstatus  => true,
-		# "service sshd restart" can restart service
+		# "service apache restart" can restart service
 		hasrestart => true,
 		# package and configuration must be present for service
 		require    => [ Package["apache"],
