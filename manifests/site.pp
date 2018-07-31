@@ -16,11 +16,18 @@ node ip-10-0-4-48 {
   include apache
 }
 
+group { 'users':
+  ensure => 'present',
+  gid => '600',
+}
+
 user { 'anosler':
   ensure           => 'present',
   home             => '/home/anosler',
   shell            => '/bin/bash',
   uid              => '598',
+  groups           => 'users',
+
 }
 
 user { 'alegge':
@@ -28,6 +35,8 @@ user { 'alegge':
   home             => '/home/alegge',
   shell            => '/bin/bash',
   uid              => '501',
+  groups           => 'users',
+
 }
 
 user { 'alajaji':
@@ -35,6 +44,7 @@ user { 'alajaji':
   home             => '/home/alajaji',
   shell            => '/bin/bash',
   uid              => '502',
+  groups           => 'users',
 }
 
 user { 'ashears':
@@ -42,6 +52,7 @@ user { 'ashears':
   home             => '/home/ashears',
   shell            => '/bin/bash',
   uid              => '503',
+  groups           => 'users',
 }
 
 user { 'aarcher':
@@ -49,6 +60,7 @@ user { 'aarcher':
   home             => '/home/aarcher',
   shell            => '/bin/bash',
   uid              => '504',
+  groups           => 'users',
 }
 
 user { 'crestonw':
@@ -56,6 +68,7 @@ user { 'crestonw':
   home             => '/home/crestonw',
   shell            => '/bin/bash',
   uid              => '505',
+  groups           => 'users',
 }
 
 user { 'alonzo':
@@ -63,6 +76,7 @@ user { 'alonzo':
   home             => '/home/alonzo',
   shell            => '/bin/bash',
   uid              => '506',
+  groups           => 'users',
 }
 
 user { 'ktb11':
@@ -70,6 +84,7 @@ user { 'ktb11':
   home             => '/home/ktb11',
   shell            => '/bin/bash',
   uid              => '507',
+  groups           => 'users',
 }
 
 user { 'mhagel2':
@@ -77,6 +92,7 @@ user { 'mhagel2':
   home             => '/home/mhagel2',
   shell            => '/bin/bash',
   uid              => '508',
+  groups           => 'users',
 }
 
 user { 'jbeder1':
@@ -84,6 +100,7 @@ user { 'jbeder1':
   home             => '/home/jbeder1',
   shell            => '/bin/bash',
   uid              => '509',
+  groups           => 'users',
 }
 
 user { 'dbeeman':
@@ -91,6 +108,7 @@ user { 'dbeeman':
   home             => '/home/dbeeman',
   shell            => '/bin/bash',
   uid              => '510',
+  groups           => 'users',
 }
 
 user { 'injoker':
@@ -98,6 +116,7 @@ user { 'injoker':
   home             => '/home/injoker',
   shell            => '/bin/bash',
   uid              => '511',
+  groups           => 'users',
 }
 
 user { 'mantail':
@@ -105,6 +124,7 @@ user { 'mantail':
   home             => '/home/mantail',
   shell            => '/bin/bash',
   uid              => '512',
+  groups           => 'users',
 }
 
 user { 'stevev':
@@ -112,6 +132,7 @@ user { 'stevev':
   home             => '/home/stevev',
   shell            => '/bin/bash',
   uid              => '513',
+  groups           => 'users',
 }
 
 user { 'mhernan':
@@ -119,6 +140,7 @@ user { 'mhernan':
   home             => '/home/mhernan',
   shell            => '/bin/bash',
   uid              => '514',
+  groups           => 'users',
 }
 
 user { 'quinnmil':
@@ -126,6 +148,7 @@ user { 'quinnmil':
   home             => '/home/quinnmil',
   shell            => '/bin/bash',
   uid              => '515',
+  groups           => 'users',
 }
 
 ssh_authorized_key { 'alegge-key':
